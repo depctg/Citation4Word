@@ -35,7 +35,7 @@
             <xsl:text>CHN</xsl:text>
           </xsl:when>
           <xsl:when test="b:StyleNameLocalized/b:Lcid='2052'">
-            <xsl:text>CHN</xsl:text>
+            <xsl:text>CHN GB</xsl:text>
           </xsl:when>
           <xsl:when test="b:StyleNameLocalized/b:Lcid='1028'">
             <xsl:text>CHN</xsl:text>
@@ -554,14 +554,14 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:choose>
-			<xsl:when test="$_LCID1!='0' and string-length($_LCID1)>0">
-				<xsl:value-of select="$_LCID1"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="/*/b:Locals/b:DefaultLCID"/>
-			</xsl:otherwise>
-		</xsl:choose>
+                <xsl:choose>
+                        <xsl:when test="$_LCID1!='0' and string-length($_LCID1)>0">
+                                <xsl:value-of select="$_LCID1"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                                <xsl:value-of select="/*/b:Locals/b:DefaultLCID"/>
+                        </xsl:otherwise>
+                </xsl:choose>
 	</xsl:template>
 
 	<xsl:template name ="templ_str_UnCapEditorsShort">
@@ -2418,7 +2418,7 @@
 
 
 			<xsl:call-template name="templ_prop_CloseQuote"/>
-			<span>[J]</span>
+                        <xsl:text>[J]</xsl:text>
 			<xsl:call-template name ="templ_prop_Dot"/>
 			<xsl:call-template name ="templ_prop_Space"/>
 		</xsl:if>
@@ -4664,8 +4664,9 @@
 					<xsl:choose>
 						<xsl:when test ="(position())=$cAuthors">
 							<xsl:call-template name ="templ_prop_Space"/>
-							<xsl:call-template name ="templ_str_AndUnCap"/>
-							<xsl:call-template name ="templ_prop_Space"/>
+                                                        <!-- FIX: remove and, or change this to et,al -->
+							<!-- <xsl:call-template name ="templ_str_AndUnCap"/> -->
+							<!-- <xsl:call-template name ="templ_prop_Space"/> -->
 						</xsl:when>
 					</xsl:choose>
 
@@ -4724,34 +4725,16 @@
 					<xsl:choose>
 						<xsl:when test="$cAuthorLastName=1">
 							<xsl:value-of select="b:Last"/>
-							<xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)">
+							<xsl:if test="position()!=$cAuthors">
+							<!-- <xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)"> -->
 								<xsl:call-template name ="templ_prop_ListSeparator"/>
 							</xsl:if>
 						</xsl:when>
 					</xsl:choose>
 				</xsl:for-each>
-				<xsl:choose>
-					<xsl:when test="$cAuthors=0">
-						<xsl:choose>
-							<xsl:when test="$cTitle!=0 or $cEdition!=0 or $cVolume!=0 or $cCity!=0 or $cStateProvince!=0 or $cPublisher!=0 or $cYear!=0 or $cPages!=0">
-								<xsl:call-template name ="templ_prop_ListSeparator"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:call-template name ="templ_prop_Dot"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:choose>
-							<xsl:when test="$cTitle!=0 or $cEdition!=0 or $cVolume!=0 or $cEditor!=0 or $cCity!=0 or $cStateProvince!=0 or $cPublisher!=0 or $cYear!=0 or $cPages!=0">
-								<xsl:call-template name ="templ_prop_ListSeparator"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:call-template name ="templ_prop_Dot"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:otherwise>
-				</xsl:choose>
+                                <!-- End of Author List -->
+                                <xsl:call-template name ="templ_prop_Dot"/>
+                                <xsl:call-template name ="templ_prop_Space"/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -4948,8 +4931,9 @@
 
 					<xsl:choose>
 						<xsl:when test ="(position())=$cAuthors">
-							<xsl:call-template name ="templ_prop_Space"/>
-							<xsl:call-template name ="templ_str_AndUnCap"/>
+                                                        <!-- FIX: AND  -->
+							<!-- <xsl:call-template name ="templ_prop_Space"/> -->
+							<!-- <xsl:call-template name ="templ_str_AndUnCap"/> -->
 							<xsl:call-template name ="templ_prop_Space"/>
 						</xsl:when>
 					</xsl:choose>
@@ -5009,34 +4993,18 @@
 					<xsl:choose>
 						<xsl:when test="$cAuthorLastName=1">
 							<xsl:value-of select="b:Last"/>
-							<xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)">
+							<xsl:if test="position()!=$cAuthors">
+							<!-- <xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)"> -->
 								<xsl:call-template name ="templ_prop_ListSeparator"/>
 							</xsl:if>
 						</xsl:when>
 					</xsl:choose>
 				</xsl:for-each>
-				<xsl:choose>
-					<xsl:when test="$cAuthors=0">
-						<xsl:choose>
-							<xsl:when test="$cTitle!=0 or $cBookTitle!=0 or $cEdition!=0 or $cVolume!=0 or $cCity!=0 or $cStateProvince!=0 or $cPublisher!=0 or $cYear!=0 or $cPages!=0">
-								<xsl:call-template name ="templ_prop_ListSeparator"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:call-template name ="templ_prop_Dot"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:choose>
-							<xsl:when test="$cTitle!=0 or $cBookTitle!=0 or $cEdition!=0 or $cVolume!=0 or $cEditor!=0 or $cCity!=0 or $cStateProvince!=0 or $cPublisher!=0 or $cYear!=0 or $cPages!=0">
-								<xsl:call-template name ="templ_prop_ListSeparator"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:call-template name ="templ_prop_Dot"/>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:otherwise>
-				</xsl:choose>
+
+                                <!-- End of Author List -->
+                                <xsl:call-template name ="templ_prop_Dot"/>
+                                <xsl:call-template name ="templ_prop_Space"/>
+				
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -5171,8 +5139,8 @@
 
 					<xsl:choose>
 						<xsl:when test ="(position())=$cAuthors">
-							<xsl:call-template name ="templ_prop_Space"/>
-							<xsl:call-template name ="templ_str_AndUnCap"/>
+							<!-- <xsl:call-template name ="templ_prop_Space"/> -->
+							<!-- <xsl:call-template name ="templ_str_AndUnCap"/> -->
 							<xsl:call-template name ="templ_prop_Space"/>
 						</xsl:when>
 					</xsl:choose>
@@ -5232,24 +5200,20 @@
 					<xsl:choose>
 						<xsl:when test="$cAuthorLastName=1">
 							<xsl:value-of select="b:Last"/>
-							<xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)">
+							<xsl:if test="position()!=$cAuthors">
 								<xsl:call-template name ="templ_prop_ListSeparator"/>
 							</xsl:if>
 						</xsl:when>
 					</xsl:choose>
 				</xsl:for-each>
-				<xsl:choose>
-					<xsl:when test="$cTitle!=0 or $cProductionCompany!=0 or $cYear!=0">
-						<xsl:call-template name ="templ_prop_ListSeparator"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:call-template name ="templ_prop_Dot"/>
-					</xsl:otherwise>
-				</xsl:choose>
+                                <!-- End of Author List -->
+                                <xsl:call-template name ="templ_prop_Dot"/>
+                                <xsl:call-template name ="templ_prop_Space"/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 
+        <!-- FIX: Author> -->
 	<xsl:template name="BibDisplayAuthorJArtcicle">
 		<xsl:param name ="DisplayEditorIfAuthorUnavailale"/>
 		<xsl:variable name ="cAuthors">
@@ -5398,7 +5362,6 @@
 
 					<xsl:choose>
 						<xsl:when test ="(position())=$cAuthors">
-							<span>,</span>
 							<xsl:call-template name ="templ_prop_Space"/>
 						</xsl:when>
 					</xsl:choose>
@@ -5458,7 +5421,9 @@
 					<xsl:choose>
 						<xsl:when test="$cAuthorLastName=1">
 							<xsl:value-of select="b:Last"/>
-							<xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)">
+							<xsl:if test="position()!=$cAuthors">
+							<!-- <xsl:if test="(position()+1)!=$cAuthors"> -->
+							<!-- <xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)"> -->
 								<xsl:call-template name ="templ_prop_ListSeparator"/>
 							</xsl:if>
 						</xsl:when>
@@ -5610,8 +5575,8 @@
 
 					<xsl:choose>
 						<xsl:when test ="(position())=$cAuthors">
-							<xsl:call-template name ="templ_prop_Space"/>
-							<xsl:call-template name ="templ_str_AndUnCap"/>
+							<!-- <xsl:call-template name ="templ_prop_Space"/> -->
+							<!-- <xsl:call-template name ="templ_str_AndUnCap"/> -->
 							<xsl:call-template name ="templ_prop_Space"/>
 						</xsl:when>
 					</xsl:choose>
@@ -5671,20 +5636,15 @@
 					<xsl:choose>
 						<xsl:when test="$cAuthorLastName=1">
 							<xsl:value-of select="b:Last"/>
-							<xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)">
+							<xsl:if test="position()!=$cAuthors">
 								<xsl:call-template name ="templ_prop_ListSeparator"/>
 							</xsl:if>
 						</xsl:when>
 					</xsl:choose>
 				</xsl:for-each>
-				<xsl:choose>
-					<xsl:when test="$cTitle!=0 or $cConferenceName!=0 or $cCity!=0 or $cYear!=0">
-						<xsl:call-template name ="templ_prop_ListSeparator"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:call-template name ="templ_prop_Dot"/>
-					</xsl:otherwise>
-				</xsl:choose>
+                                <!-- End of Author List -->
+                                <xsl:call-template name ="templ_prop_Dot"/>
+                                <xsl:call-template name ="templ_prop_Space"/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -5829,8 +5789,8 @@
 
 					<xsl:choose>
 						<xsl:when test ="(position())=$cAuthors">
-							<xsl:call-template name ="templ_prop_Space"/>
-							<xsl:call-template name ="templ_str_AndUnCap"/>
+							<!-- <xsl:call-template name ="templ_prop_Space"/> -->
+							<!-- <xsl:call-template name ="templ_str_AndUnCap"/> -->
 							<xsl:call-template name ="templ_prop_Space"/>
 						</xsl:when>
 					</xsl:choose>
@@ -5890,20 +5850,15 @@
 					<xsl:choose>
 						<xsl:when test="$cAuthorLastName=1">
 							<xsl:value-of select="b:Last"/>
-							<xsl:if test="((position()+1)!=$cAuthors) and (position()&lt;$cAuthors)">
+							<xsl:if test="position()!=$cAuthors">
 								<xsl:call-template name ="templ_prop_ListSeparator"/>
 							</xsl:if>
 						</xsl:when>
 					</xsl:choose>
 				</xsl:for-each>
-				<xsl:choose>
-					<xsl:when test="$cTitle!=0 or $cCity!=0 or $cPublisher!=0 or $cYear!=0">
-						<xsl:call-template name ="templ_prop_ListSeparator"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:call-template name ="templ_prop_Dot"/>
-					</xsl:otherwise>
-				</xsl:choose>
+                                <!-- End of Author List -->
+                                <xsl:call-template name ="templ_prop_Dot"/>
+                                <xsl:call-template name ="templ_prop_Space"/>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -6428,17 +6383,10 @@
 			<xsl:call-template name="right-trim">
 				<xsl:with-param name ="s" select="b:Title"/>
 			</xsl:call-template>
-			<xsl:choose>
-				<xsl:when test ="$cConferenceName!=0 or $cCity!=0 or $cYear!=0">
-					<xsl:call-template name ="List_Separator_NoSpace"/>
-					<xsl:call-template name="templ_prop_CloseQuote"/>
-					<xsl:call-template name ="templ_prop_Space"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:call-template name="templ_prop_CloseQuote"/>
-					<xsl:call-template name ="templ_prop_Dot"/>
-				</xsl:otherwise>
-			</xsl:choose>
+                        <xsl:call-template name="templ_prop_CloseQuote"/>
+                        <xsl:text>[C]</xsl:text>
+                        <xsl:call-template name ="templ_prop_Dot"/>
+			<xsl:call-template name ="templ_prop_Space"/>
 		</xsl:if>
 	</xsl:template>
 
@@ -6460,26 +6408,20 @@
 			<xsl:call-template name ="templ_prop_Space"/>
 		</xsl:variable>
 
-
 		<xsl:if test ="$cConferenceName!=0">
-			<xsl:call-template name ="FindReplaceString">
-				<xsl:with-param name="originalString" select="string($str_InNameCap)"/>
-				<xsl:with-param name="stringToBeReplaced" select="' %1'"/>
-				<xsl:with-param name="stringReplacement" select="$prop_EnumSeaparator"/>
-			</xsl:call-template>
-			<xsl:call-template name ="templ_prop_Space"/>
-			
-				<xsl:value-of select="b:ConferenceName"/>
-			
-			<xsl:choose>
-				<xsl:when test=" $cCity!=0 or $cYear!=0 ">
-
-					<xsl:call-template name ="templ_prop_ListSeparator"/>
-				</xsl:when>
-				<xsl:when test=" $cCity=0 and $cYear=0">
-					<xsl:call-template name ="templ_prop_Dot"/>
-				</xsl:when>
-			</xsl:choose>
+                        
+                        <xsl:text>//</xsl:text>
+                        <!-- FIX: remove \\ -->
+                        <xsl:call-template name ="templ_prop_Space"/>
+                        <xsl:value-of select="b:ConferenceName"/>
+                        <xsl:choose>
+                                <xsl:when test=" $cCity!=0 or $cYear!=0 ">
+                                        <xsl:call-template name ="templ_prop_ListSeparator"/>
+                                </xsl:when>
+                                <xsl:when test=" $cCity=0 and $cYear=0">
+                                        <xsl:call-template name ="templ_prop_Dot"/>
+                                </xsl:when>
+                        </xsl:choose>
 		</xsl:if>
 	</xsl:template>
 
@@ -7708,12 +7650,12 @@
 						<xsl:element name="p">
 							<xsl:call-template name = "BibAddParagraphAttributes"/>
 							<xsl:call-template name = "BibDisplayAuthorWebsite"/>
-							<xsl:call-template name ="BibDisplayTitleWebSite"/>
-							<xsl:call-template name ="BibDisplayProductionCompanywebsite"/>
+							<xsl:call-template name = "BibDisplayTitleWebSite"/>
+							<xsl:call-template name = "BibDisplayProductionCompanywebsite"/>
 							<xsl:call-template name = "BibDisplayDayMonthYearWebSiteJournal"/>
-							<xsl:call-template name ="BibDisplayStrOnline"/>
-							<xsl:call-template name ="BibDisplayURL"/>
-							<xsl:call-template name ="BibDisplayAccessedDates"/>
+							<xsl:call-template name = "BibDisplayStrOnline"/>
+							<xsl:call-template name = "BibDisplayURL"/>
+							<xsl:call-template name = "BibDisplayAccessedDates"/>
 						</xsl:element>
 					</xsl:element>
 				</xsl:element>
@@ -7877,7 +7819,7 @@
 							<xsl:value-of select="'top'"/>
 						</xsl:attribute>
 						<xsl:element name="p">
-							<xsl:call-template name = "BibAddParagraphAttributes"/>
+							<xsl:call-template name ="BibAddParagraphAttributes"/>
 							<xsl:call-template name ="BibDisplayAuthorReport"/>
 							<xsl:call-template name ="BibDisplayTitleReport"/>
 							<xsl:call-template name ="BibDisplayPublisher"/>
@@ -7972,7 +7914,7 @@
 		<xsl:call-template name ="templ_prop_SecondaryOpen"/>
 		<xsl:value-of select="b:RefOrder"/>
 		<xsl:call-template name="templ_prop_SecondaryClose"/>
-		<xsl:call-template name ="templ_prop_Space"/>
+                <xsl:call-template name ="templ_prop_Space"/>
 	</xsl:template>
 
 	<xsl:template name ="displayPageOrPages">
@@ -7984,31 +7926,29 @@
 	</xsl:template>
 
 	<xsl:template name="Citation">
+
 		<xsl:for-each select="b:Citation">
 			<xsl:variable name="SourceType">
 				<xsl:value-of select="b:Source/b:SourceType"/>
 			</xsl:variable>
 			<xsl:choose>
 				<xsl:when test="$SourceType = 'Book' or 
-                $SourceType = 'BookSection' or
-                $SourceType = 'Film' or
-				$SourceType = 'Case' or
-                $SourceType = 'JournalArticle' or
-                $SourceType = 'ArticleInAPeriodical' or
-			    $SourceType = 'Misc' or
-			    $SourceType = 'ElectronicSource' or
-			    $SourceType = 'Report' or
-				$SourceType = 'DocumentFromInternetSite' or
-			    $SourceType = 'Art' or
-			    $SourceType = 'SoundRecording' or
-				$SourceType = 'Performance' or
-				$SourceType = 'Interview' or
-			    $SourceType = 'InternetSite' or
-				$SourceType = 'Patent' or
-                $SourceType = 'ConferenceProceedings' ">
-					<html xmlns="http://www.w3.org/TR/REC-html40">
-						<body>							
-							<sup>
+                                    $SourceType = 'BookSection' or
+                                    $SourceType = 'Film' or
+                                    $SourceType = 'Case' or
+                                    $SourceType = 'JournalArticle' or
+                                    $SourceType = 'ArticleInAPeriodical' or
+                                    $SourceType = 'Misc' or
+                                    $SourceType = 'ElectronicSource' or
+                                    $SourceType = 'Report' or
+                                    $SourceType = 'DocumentFromInternetSite' or
+                                    $SourceType = 'Art' or
+                                    $SourceType = 'SoundRecording' or
+                                    $SourceType = 'Performance' or
+                                    $SourceType = 'Interview' or
+                                    $SourceType = 'InternetSite' or
+                                    $SourceType = 'Patent' or
+                                    $SourceType = 'ConferenceProceedings' ">
 							<xsl:variable name ="cPages">
 								<xsl:value-of select="count(b:Pages)" />
 							</xsl:variable>
@@ -8031,30 +7971,18 @@
 								</xsl:choose>
 							</xsl:variable>
 
+                                                    <xsl:element name="sup">
+                                                            <xsl:attribute name="style">
+                                                                    <xsl:value-of select="'font-size:smaller'"/>
+                                                            </xsl:attribute>
+                                                            <xsl:attribute name="valign">
+                                                                    <xsl:value-of select="'top'"/>
+                                                            </xsl:attribute>
 
-							<xsl:if test="b:FirstAuthor">
-								<xsl:call-template name ="templ_prop_SecondaryOpen"/>
-							</xsl:if>
-
-							<xsl:call-template  name="RefOrder"/>
-
-							<xsl:if test="count(b:Pages)>0">
-								<xsl:call-template name="displayPageOrPages" >
-									<xsl:with-param name="pages" select ="$pages"/>
-								</xsl:call-template>
-							</xsl:if>
-
-							<xsl:if test="b:LastAuthor">
-								<xsl:call-template name="templ_prop_SecondaryClose"/>
-							</xsl:if>
-
-							<xsl:if test="not(b:LastAuthor)">
-								<xsl:call-template name="templ_prop_ListSeparator"/>
-								<xsl:call-template name ="templ_prop_Space"/>
-							</xsl:if>
-							</sup>
-						</body>
-					</html>
+                                                            <xsl:call-template name="templ_prop_SecondaryOpen"/>
+                                                            <xsl:call-template name="RefOrder"/>
+                                                            <xsl:call-template name="templ_prop_SecondaryClose"/>
+                                                    </xsl:element>
 				</xsl:when>
 			</xsl:choose>
 		</xsl:for-each>

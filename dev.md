@@ -42,3 +42,7 @@ BibDisplay + 字段 + 限定
 | 显示杂志文章/期刊文章名字 | BibDisplayTitleJournal/BibDisplayTitleAP |
 
 在一些模板中出现的`/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/`字段是和当前语言环境有关的字符串，例如连接符“和”，“卷”等
+
+http://www.xmlplease.com/xml/xmlspace/
+sendory
+space? preserve
